@@ -1,6 +1,3 @@
-	<navigator url="/echarts/index" style="margin:50px">
-  点我进入echarts
-	</navigator>
 
 	<navigator url="/wave/index" style="margin:50px">
   点我进入水波图

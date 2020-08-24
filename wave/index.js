@@ -7,7 +7,7 @@ var clearCharts = true;
 //图表容器
 var testChartsObj = {};
 //定时器编号
-var SI;
+var STO,SI;
 
 Page({
   data: {
@@ -15,21 +15,22 @@ Page({
     list: []
   }, 
   onLoad: function () {
-    
+    var that = this;
+
     wx.onMemoryWarning(function () {
       console.log('>>>onMemoryWarningReceive');
       clearInterval(SI);
     })
 
-    var that = this;
     that.reloadData();
     SI = setInterval(function(){
       that.reloadData();
-    }, 60000);
+    }, 3000);
   },
   onUnload: function(){
     this.clearCharts();
     clearInterval(SI);
+    clearTimeout(STO);
   },
   loadData: function(){
     var that = this;
@@ -48,19 +49,17 @@ Page({
   },
   /**
    * 清理echarts实例时
-   * 1、点我进入，图表显示，点击返回，IOS就闪退
-   * 不清理echarts实例时
-   * 1、点我进入，图表显示，点击返回，多进入返回几次，IOS就闪退
-   * 2、点我进入，图表显示，下拉刷新几下，IOS也会闪退
-   * 安卓清不清理echarts实例，都是正常的
    */
   clearCharts: function(){
     if(clearCharts){
-      var array = Object.values(testChartsObj);
+      var array = Object.keys(testChartsObj);
       for(var i=0;i<array.length;i++){
-        var chart = array[i];
-        console.log(">>>chart.dispose")
-        chart.dispose();
+        var key = array[i];
+        var chart = testChartsObj[key];
+        if(chart){
+          chart.dispose();
+          console.log(">>>" + key + '，isDisposed: ' + chart.isDisposed());
+        }
       }
       testChartsObj = {};
     }
@@ -70,7 +69,7 @@ Page({
    */
   onPullDownRefresh: function(){
     this.reloadData();
-    setTimeout(function () {
+    STO = setTimeout(function () {
       wx.stopPullDownRefresh();
     }, 500);
   },
