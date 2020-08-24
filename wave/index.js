@@ -78,20 +78,12 @@ Page({
     var width = options.detail.width;
     var height = options.detail.height;
     var dpr = options.detail.dpr;
-    var chartData = options.target.dataset.device;
-    var level = chartData.level;
     
     var id = canvas.canvasId;
-
-    //发现存在图表实例，则销毁
-    var existChartObj = testChartsObj[id];
-    if(existChartObj){
-      existChartObj.dispose();
-      delete testChartsObj[id];
-      console.log('>>>'+id+'，页面销毁、重新初始化');
-    }else{
-      console.log('>>>'+id+'，echart init>>>')
-    }
+    console.log('>>>'+id+'，echart init>>>')
+    
+    var chartData = options.target.dataset.device;
+    var level = chartData.level;
     
     // 获取组件的 canvas、width、height 后的回调函数
     // 在这里初始化图表
@@ -103,12 +95,12 @@ Page({
     // let data = [value, value, value, ];
   
     var waveList = [
-      {'level':'1','color':'67,209,100','label':'舒适'},
-      {'level':'2', 'color':'255,255,0','label':'适宜'},
-      {'level':'3', 'color':'255,165,0','label':'净化'},
-      {'level':'4', 'color':'255,0,0','label':'净化'},
-      {'level':'5', 'color':'128,0,128','label':'净化'},
-      {'level':'6', 'color':'139,0,0','label':'净化'}];
+      {'label':'舒适', 'color':'67,209,100'},
+      {'label':'适宜', 'color':'255,255,0'},
+      {'label':'净化', 'color':'255,165,0'},
+      {'label':'净化', 'color':'255,0,0'},
+      {'label':'净化', 'color':'128,0,128'},
+      {'label':'净化', 'color':'139,0,0'}];
     var wave = waveList[level];
     var optParam = {
       'waveValue': 0.6,
