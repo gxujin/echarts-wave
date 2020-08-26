@@ -103,7 +103,7 @@ Page({
       {'label':'净化', 'color':'139,0,0'}];
     var wave = waveList[level];
     var optParam = {
-      'waveValue': 0.6,
+      'waveValue': 0.2,
       'waveColor': wave.color,
       'waveLabel': wave.label
     };
@@ -120,20 +120,13 @@ function setOption(optParam){
   var waveValue = optParam.waveValue;
   var waveColor = optParam.waveColor;
   var waveLabel = optParam.waveLabel;
-  var waveAnimation = true;
-  var animation = true;
-  if(!waveValue){
-    waveAnimation = false;
-    animation = false;
-  }
   var color = 'rgba('+waveColor+',1)';
   var backgroundColor = 'rgba('+waveColor+',0.3)';
   const option = {
     series: [{
         type: 'liquidFill',
         radius: '90%',
-        waveAnimation: waveAnimation,
-        animation: animation,
+        waveAnimation: false,
         data: [{
             value: waveValue, 
             itemStyle: {
