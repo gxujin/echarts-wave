@@ -58,10 +58,10 @@ Page({
         var chart = testChartsObj[key];
         if(chart){
           chart.dispose();
-          console.log(">>>" + key + '，isDisposed: ' + chart.isDisposed());
+          console.log('>>>isDisposed: ' + chart.isDisposed());
+          delete testChartsObj[key];
         }
       }
-      testChartsObj = {};
     }
   },
   /**
@@ -80,7 +80,7 @@ Page({
     var dpr = options.detail.dpr;
     
     var id = canvas.canvasId;
-    console.log('>>>'+id+'，echart init>>>')
+    console.log('>>>echart init>>>')
     
     var chartData = options.target.dataset.device;
     var level = chartData.level;
